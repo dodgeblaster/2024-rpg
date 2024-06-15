@@ -26,7 +26,7 @@ export default {
                     },
                     script: [
                         'cd ./app',
-                        'AWS_ACCESS_KEY_ID=${AWS_KEY} AWS_SECRET_ACCESS_KEY=${AWS_SECRET} node ../rise-front.js deploy'
+                        'AWS_ACCESS_KEY_ID=${AWS_KEY} AWS_SECRET_ACCESS_KEY=${AWS_SECRET} node ../rise-frontend.js deploy'
                     ]
  
                 }
