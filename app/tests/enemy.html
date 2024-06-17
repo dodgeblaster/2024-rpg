@@ -8,15 +8,17 @@
     </head>
     <body class='flex flex-col justify-center items-center h-screen'>
         <div>
-        <p><span id='test1'></span> Can get hp </p> 
-        <p><span id='test2'></span> Can take damage</p> 
-        <p><span id='test3'></span> Can request an action</p> 
+            <p><span id='test1'></span> Can get hp </p> 
+            <p><span id='test2'></span> Can take damage</p> 
+            <p><span id='test3'></span> Can request an action</p> 
         </div>
 
         <script type='module'>
         import { Enemy} from '/src/enemy.js';
-
-    {
+        /**
+         * Can get HP
+         */
+        {
             const instance = new Enemy({
                 hp: 300,
                 mp: 300,
@@ -26,8 +28,10 @@
             document.getElementById('test1').textContent = pass
         }
 
-
-    {
+        /**
+         * Can apply damage
+         */
+        {
             const instance = new Enemy({
                 hp: 300,
                 mp: 300,
@@ -41,8 +45,10 @@
             const pass = instance.getHp() === 250 ? '✅' : '❌'
             document.getElementById('test2').textContent = pass
         }
-
-    {
+        /**
+         * Can request an action
+         */
+         {
             const instance = new Enemy({
                 hp: 300,
                 mp: 300,
@@ -57,10 +63,6 @@
                 target: "party:single",
                 weight: 1,
             }
-
-            console.log(action)
-
-            console.log(expected)
             const pass = JSON.stringify(expected) === JSON.stringify(action) ? '✅' : '❌'
             document.getElementById('test3').textContent = pass
         }
