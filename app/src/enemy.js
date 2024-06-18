@@ -1,4 +1,12 @@
 import {generateRandomId, calculateDamage} from './utils/utils.js'
+import {
+    createEventAction,
+    determineEventAction,
+    selectWeightedAction,
+    createWeightedAction,
+    determinePhaseActions,
+    createPhaseAction
+} from './utils/actionUtils.js';
 
 
 
@@ -23,74 +31,46 @@ export class Enemy {
     }
 
     actions = {
-        eventActions: {
-            'party:heal': {
+        eventActions: [
+            createEventAction({
                 name: "punch2",
                 effect: "hp:subtract",
                 target: "party:single",
                 strength: 150,
-                priority: 100
-            }
-        },
-        stateActions: [
-            {
-                state: "hp:50%",
+                priority: 100,
+                event: 'party:heal'
+            })
+        ],
+        phaseActions: [
+            createPhaseAction({
+                maxHp: 50,
+                minHp: 0,
                 name: "punch2",
                 effect: "hp:subtract",
                 target: "party:single",
                 strength: 150
-            },
+            })
         ],
         normal: [
-            {
+            createWeightedAction({
                 name: "punch",
                 strength: 100,
                 effect: "hp:subtract",
                 target: "party:single",
                 weight: 1
-            },
+            })
         ]
     }
 
     requestAction = (events = []) => {
-        let eventAction = false
-        events.forEach(event => {
-            const possibleAction = this.actions.eventActions[event.name]
-            if (possibleAction) {
-                if (!eventAction) {
-                    eventAction = possibleAction
-                } else {
-                    if (possibleAction.priority > eventAction.priority) {
-                        eventAction = possibleAction
-                    }
-                }
-            }   
-        });
-
-        function randomWeightedSelection(array) {
-            let totalWeight = 0;
-            let weightedItems = [];
-
-            // Calculate total weight and create a weighted items array
-            for (let i = 0; i < array.length; i++) {
-                const itemWeight = array[i].weight;
-                totalWeight += itemWeight;
-                weightedItems.push({item: array[i], weight: itemWeight});
-            }
-
-            // Generate random weight between 0 and totalWeight
-            let randomWeight = Math.random() * totalWeight;
-            let accumulatedWeight = 0;
-            for (let i = 0; i < weightedItems.length; i++) {
-                accumulatedWeight += weightedItems[i].weight;
-
-                if (accumulatedWeight > randomWeight) {
-                    return weightedItems[i].item; // Return the selected item
-                }
-            }
+        const eventA = determineEventAction(events, this.actions.eventActions)
+        if (eventA) {
+            return eventA
         }
 
-        const selection = randomWeightedSelection(this.actions.normal);         
-        return selection
+        const phaseActions = determinePhaseActions(this.actions.phaseActions)
+        const normalActions = this.actions.normal
+        const allActions = [...phaseActions, ...normalActions]
+        return selectWeightedAction(allActions)
     }
 }

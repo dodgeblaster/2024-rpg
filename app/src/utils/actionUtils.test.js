@@ -1,6 +1,8 @@
 import {
     createEventAction,
-    determineEventAction
+    determineEventAction,
+    selectWeightedAction,
+    createWeightedAction
 } from './actionUtils.js';
 import {createEvent} from './eventUtils.js'
 import assert from 'node:assert';
@@ -12,6 +14,23 @@ const expect = (a) => {
         }
     }
 }
+
+test('selectWeightedAction will return an action from an array of actions', () => {
+ 
+    const actions = [
+        createWeightedAction({
+            name: 'A',
+            target: 'enemy:single',
+            effect: 'hp:subtract',
+            strength: 20,
+            weight: 100
+        })
+    ] 
+    
+    const result = selectWeightedAction(actions)
+    expect(result.name).toBe('A')
+})
+
 
 test('determineEventAction returns false if all events do not match an event action', () => {
     const events = [
