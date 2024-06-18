@@ -1,3 +1,5 @@
+import {generateRandomId} from './utils/utils.js'
+
 const elements = {
     fire: 'ice',
     ice: 'fire',
@@ -20,17 +22,6 @@ function calculateDamaage(props) {
     }
 
     return damage
-}
-
-function generateRandomId(length) {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-    let result = '';
-    for (let i = 0; i < length; i++) {
-        result += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-
-    return result;
 }
 
 export class Enemy {

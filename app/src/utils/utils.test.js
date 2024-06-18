@@ -2,7 +2,9 @@ import {
     min0max,
     min0max9999,
     min9999max9999,
-    randomBetween0And
+    randomBetween0And,
+    generateRandomId,
+    calculateDamage
 } from './utils.js';
 import assert from 'node:assert';
 import { test } from 'node:test';
@@ -41,4 +43,36 @@ test('randomBetween0And will give number between 0 and max number', () => {
     expect(typeof result).toBe('number')
     expect(result > -1).toBe(true)
     expect(result < 301).toBe(true)
+})
+
+test('generate id will create an id that is 6 characters long if no length is specified', () => {
+    const id = generateRandomId()
+    expect(id.length).toBe(6)
+})
+
+test('calculate damage returns the same damage if no element scenario is in play', () => {
+    const result = calculateDamage({
+        targetElement: 'fire',
+        sourceElement: 'none',
+        damage: 20
+    })
+    expect(result).toBe(20)
+})
+
+test('calculate damage returns half if elements match', () => {
+    const result = calculateDamage({
+        targetElement: 'fire',
+        sourceElement: 'fire',
+        damage: 20
+    })
+    expect(result).toBe(10)
+})
+
+test('calculate damage returns double if elements are opposit', () => {
+    const result = calculateDamage({
+        targetElement: 'fire',
+        sourceElement: 'ice',
+        damage: 20
+    })
+    expect(result).toBe(40)
 })
