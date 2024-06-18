@@ -1,28 +1,6 @@
-import {generateRandomId} from './utils/utils.js'
+import {generateRandomId, calculateDamage} from './utils/utils.js'
 
-const elements = {
-    fire: 'ice',
-    ice: 'fire',
-    water: 'lightning',
-    lightning: 'water',
-}
 
-function calculateDamaage(props) {
-    const targetElement = props.targetElement
-    const sourceElement = props.sourceElement
-    const damage = props.damage 
-    if (!elements[targetElement]) return damage 
-    if (!elements[sourceElement]) return damage 
-    if (elements[targetElement] === sourceElement) {
-        return damage * 2
-    }
-
-    if (targetElement === sourceElement) {
-        return damage / 2
-    }
-
-    return damage
-}
 
 export class Enemy {
     constructor(props){
@@ -40,7 +18,7 @@ export class Enemy {
     getMp = () => this.mp
 
     applyDamage = (props) => {
-        const damage = calculateDamaage(props)
+        const damage = calculateDamage(props)
         this.hp = Math.max(0, this.hp - damage)
     }
 
