@@ -17,7 +17,7 @@ const availableActions = {
 
 export function createEventAction(props) {
 
-    if (availableTargets[props.target]) {
+    if (!availableTargets[props.target]) {
         throw new Error(props.target, ' is not a valid target')
     }
 
@@ -43,7 +43,7 @@ export function createEventAction(props) {
 export function determineEventAction(events, eventActions) {
     let eventAction = false
     events.forEach(event => {
-        const possibleAction = eventActions[event.name]
+        const possibleAction = eventActions.find(x => x.event === event.name)
         if (possibleAction) {
             if (!eventAction) {
                 eventAction = possibleAction
