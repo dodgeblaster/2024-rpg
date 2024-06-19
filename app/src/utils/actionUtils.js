@@ -133,6 +133,6 @@ export function selectWeightedAction(actions) {
 }
 
 export function determinePhaseActions(actions, maxHp, currentHp) {
-    const hpPercent = Math.floor((currentHp / maxHp) * 100)
+    const hpPercent = Math.floor((currentHp / maxHp) * 100) 
     return actions.filter(a => a.maxHp > hpPercent && a.minHp < hpPercent)
 }

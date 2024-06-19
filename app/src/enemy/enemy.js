@@ -1,4 +1,4 @@
-import {generateRandomId, calculateDamage} from './utils/utils.js'
+import {generateRandomId, calculateDamage} from '../utils/utils.js'
 import {
     createEventAction,
     determineEventAction,
@@ -6,7 +6,7 @@ import {
     createWeightedAction,
     determinePhaseActions,
     createPhaseAction
-} from './utils/actionUtils.js';
+} from '../utils/actionUtils.js';
 
 const defaultActions =  {
     eventActions: [
@@ -41,9 +41,11 @@ const defaultActions =  {
     ]
 }
 
-export function makeEnemy(props) {
+export function createEnemy(props) {
     const state = {
+        maxHp: props.maxHp,
         hp: props.hp,
+        maxMp: props.maxMp,
         mp: props.mp,
         speed: props.speed,
         element: props.element,
@@ -57,18 +59,18 @@ export function makeEnemy(props) {
         getId: () => state.id,
         getHp: () => state.hp,
         getMp: () => state.mp,
-        applyDamage: ({targetElement, sourceElement, damage}) => {
-            const damage = calculateDamage({targetElement, sourceElement, damage})
-            this.hp = Math.max(0, this.hp - damage)
+        applyDamage: ({sourceElement, damage}) => {
+            const result = calculateDamage({targetElement: state.element, sourceElement, damage})
+            state.hp = Math.max(0, state.hp - result)
         },
         requestAction:  (events = []) => {
-            const eventA = determineEventAction(events, this.actions.eventActions)
+            const eventA = determineEventAction(events, state.actions.eventActions)
             if (eventA) {
                 return eventA
             }
 
-            const phaseActions = determinePhaseActions(this.actions.phaseActions)
-            const normalActions = this.actions.normal
+            const phaseActions = determinePhaseActions(state.actions.phaseActions || [], state.maxHp, state.hp)
+            const normalActions = state.actions.normal || []
             const allActions = [...phaseActions, ...normalActions]
             return selectWeightedAction(allActions)
         }
