@@ -1,16 +1,4 @@
-const itemDefinitions = {
-    potion: {
-        id: 'potion',
-        name: 'Potion',
-        action: {
-            effect: 'hp:add',
-            strength: 100
-        }
-    }
-}
-
-
-export function makeInventory(items = {}) {
+export function createInventory(itemDefinitions, items = {}) {
     const state = {
         items: items // Record<id, number>
     }
