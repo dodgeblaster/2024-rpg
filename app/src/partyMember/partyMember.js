@@ -11,10 +11,13 @@ import {
 
 export function makePartyMember(props) {
     const state = {
+        maxHp: props.maxHp,
         hp: props.hp,
+        maxMp: props.maxMp,
         mp: props.mp,
         speed: props.speed,
         physicalDefense: props.physicalDefense,
+        magicDefense: props.magicDefence,
         partyMemberId: props.partyMemberId,
         name: props.name,
         id: generateRandomId(),
@@ -24,9 +27,9 @@ export function makePartyMember(props) {
         getId: () => state.id,
         getHp: () => state.hp,
         getMp: () => state.mp,
-        applyDamage: ({targetElement, sourceElement, damage}) => {
-            const damage = calculateDamage({targetElement, sourceElement, damage})
-            this.hp = Math.max(0, this.hp - damage)
+        applyDamage: ({sourceElement, damage}) => {
+            const damage = calculateDamage({targetElement: state.element || 'none', sourceElement, damage})
+            state.hp = Math.max(0, state.hp - damage)
         },
         requestActionOptions: () => {
             return [
