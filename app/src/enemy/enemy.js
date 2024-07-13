@@ -57,6 +57,7 @@ export function createEnemy(props) {
 
     return {
         getId: () => state.id,
+        getName: () => state.name,
         getHp: () => state.hp,
         getMp: () => state.mp,
         applyDamage: ({sourceElement, damage}) => {

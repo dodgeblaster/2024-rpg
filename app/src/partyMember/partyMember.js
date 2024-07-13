@@ -19,6 +19,7 @@ export function createPartyMember(props) {
             def_phy: props.equip.def_phy,
             def_mag: props.equip.def_mag
         },
+        speed: props.stats.speed,
         current: {
             hp: props.current.hp,
             mp: props.current.mp,
@@ -48,6 +49,14 @@ export function createPartyMember(props) {
         },
         applyMpUp: (amount) => {
             state.current.mp = Math.min(state.stats.mp, state.current.mp + amount)
+        },
+
+        getStatusData: () => {
+            return {
+                name: state.name,
+                currentHp: state.current.hp,
+                maxHp: state.stats.hp
+            }
         },
 
 

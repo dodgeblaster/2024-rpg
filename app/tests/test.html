@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title></title>
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <style>
+* {
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: black;
+}
+
+    </style>
+    <body>
+
+        <div id='battle'></div>
+    </body>
+    <script type='module'>
+    import battle from '/src/battle.js'
+    import definitions from '/tests/definitions.js'
+import * as little from '/tests/little.js'
+
+    battle(document.getElementById('battle'), definitions)
+
+    </script>
+</html>
