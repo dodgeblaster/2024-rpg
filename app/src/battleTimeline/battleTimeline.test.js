@@ -1,4 +1,4 @@
-import BattleTimelineDS from './battleTimeline.js'
+import BattleTimelineDS, {createBattleTimeline} from './battleTimeline.js'
 import assert from 'node:assert';
 import { test } from 'node:test';
 
@@ -19,7 +19,7 @@ const expect = (a) => {
 
 test('battleTimelineDS will throw error if players is an empty array', () => {
     try {
-        new BattleTimelineDS({
+        createBattleTimeline({
             randomBetween0And,
             players: []
         })
@@ -29,7 +29,7 @@ test('battleTimelineDS will throw error if players is an empty array', () => {
 })
 
 test('battleTimelineDS will calculate timeline', () => {
-    const timeline = new BattleTimelineDS({
+    const timeline = createBattleTimeline({
         randomBetween0And,
         players: [
             {
@@ -77,7 +77,7 @@ test('battleTimelineDS will calculate timeline', () => {
 })
 
 test('battleTimelineDS will calculate timeline with offset', () => {
-    const timeline = new BattleTimelineDS({
+    const timeline = createBattleTimeline({
         randomBetween0And,
         players: [
             {
@@ -134,7 +134,7 @@ test('battleTimelineDS will calculate timeline with offset', () => {
 })
 
 test('battleTimelineDS with no additional offsets, will go thru timeline correctly when turns are taken', () => {
-    const timeline = new BattleTimelineDS({
+    const timeline = createBattleTimeline({
         randomBetween0And,
         players: [
             {

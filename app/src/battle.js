@@ -1,5 +1,5 @@
 import { createInventory } from './inventory/inventory.js'
-import BattleTimelineDS from './battleTimeline/battleTimeline.js'
+import { createBattleTimeline } from './battleTimeline/battleTimeline.js'
 import { createEnemy } from './enemy/enemy.js'
 import { createPartyMember } from './partyMember/partyMember.js'
 
@@ -9,7 +9,7 @@ function createBattleState(party, enemies, inventory, itemDefs) {
     const enemyPlayers = enemies.map(x => createEnemy(x))
     const partyPlayers = party.map(x => createPartyMember(x))
     const items = createInventory(itemDefs, inventory)
-    const timeline = new BattleTimelineDS({
+    const timeline = createBattleTimeline({
         players: [...enemies, ...party]
     })
 
