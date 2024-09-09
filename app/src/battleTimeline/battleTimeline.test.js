@@ -1,4 +1,4 @@
-import BattleTimelineDS, {createBattleTimeline} from './battleTimeline.js'
+import  {createBattleTimeline} from './battleTimeline.js'
 import assert from 'node:assert';
 import { test } from 'node:test';
 
